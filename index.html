@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./js/jquery 3.3.1.js"></script>
+    <title>Document</title>
+    <style>
+        .window {
+            width: 300px;
+            overflow: hidden;
+        }
+        .images {
+            width: 900px;
+            display: flex;
+            align-items: flex-start;
+            transition: all 0.5s
+        }
+        .images > img {
+            /* width: 300px;
+            height: 200px; */
+        }
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <div class="images">
+            <img src="https://d3jkudlc7u70kh.cloudfront.net/dog-fact.jpg" width=300 height=200 alt="">
+            <img src="https://d1o50x50snmhul.cloudfront.net/wp-content/uploads/2018/03/29155020/gettyimages-604576373-800x533.jpg" width=300 height=200 alt="">
+            <img src="https://i2-prod.mirror.co.uk/incoming/article7923579.ece/ALTERNATES/s1200/A-German-Shepherd-dog.jpg" width=300 height=200 alt="">
+        </div>
+    </div>
+    <button id="p1">第1张</button>
+    <button id="p2">第2张</button>
+    <button id="p3">第3张</button>
+    <script>
+        let btn = $('button')
+        for(let i = 0; i < btn.length; i++) {
+            $(btn[i]).on('click mouseenter', function() {
+                $('.images').css('transform', 'translateX(' + -i*300 + 'px' +')')
+                $(this).addClass('red').siblings('.red').removeClass('red')
+            })
+        }
+
+        let n = 0
+        let size = $('.images img').length
+        slide()
+        let intervalId = setInterval(slide, 1000)
+        function slide() {
+            let k = n%size
+            n++
+            $(btn[k]).trigger('click')
+        }
+
+        $('.window').on('mouseenter', function() {
+            clearInterval(intervalId)
+        }).on('mouseleave', function() {
+            intervalId = setInterval(slide, 1000)
+        })
+    </script>
+</body>
+</html>
